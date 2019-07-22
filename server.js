@@ -15,9 +15,11 @@ app.use('/public',express.static(path.join(__dirname,'./mystatic'))); //public �
 //引入路由
 const foodRouter = require('./router/foodRouter');
 const userRouter = require('./router/userRouter');
+const fileRouter = require('./router/fileRouter');
 //使用用户路由路径
 app.use('/user',userRouter);
 app.use('/food',foodRouter);
+app.use('/file',fileRouter);
 
 app.listen(3000,()=>{
     console.log('server start');
