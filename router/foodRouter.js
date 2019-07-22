@@ -131,6 +131,29 @@ router.post('/del',(req,res)=>{
         })
     })
 
+/**
+ * @api {post} /food/getInfoByPage  关键字查询模块
+ * @apiName getInfoByPage
+ * @apiGroup Food
+ *
+ * @apiParam {Number} pageSize 每页的数据条数
+ * @apiParam {Number} page 第几页
+ *
+ * @apiSuccess {json} firstname {code:200,msg:'查询成功'}
+ * @apiSuccess {String} lastname  Lastname of the User.
+ */
+router.post('/getInfoByPage',(req,res)=>{
+    // let {pageSize,page}= req.body;
+    let pageSize = req.body.pageSize || 2 ;
+    let page = req.body.page || 1 ;
+    Food.find().limit(Number(pageSize)).skip(Number((page-1)*pageSize))   //limit() skip() 都是mongoDB的方法
+    .then((data)=>{
+        res.send({code:200,msg:'查询成功',list:data});
+    })
+    .catch(()=>{
+        res.send({code:200,msg:'查询失败'});
+    })
+})
 
 
 module.exports = router;
