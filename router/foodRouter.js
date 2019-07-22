@@ -104,5 +104,33 @@ router.post('/del',(req,res)=>{
     })
 })
 
+/**
+ * @api {post} /food/del  修改模块
+ * @apiName del
+ * @apiGroup Food
+ *
+ * @apiParam {Spring} _id id号
+ * @apiParam {Spring} name 名字
+ * @apiParam {Spring} price 价格
+ * @apiParam {Spring} desc 介绍
+ * @apiParam {Spring} typename 食品类名
+ * @apiParam {Spring} typeid 类名id
+ * @apiParam {Spring} img 食品图片
+ *
+ * @apiSuccess {json} firstname {code:200,msg:'查询成功'}
+ * @apiSuccess {String} lastname  Lastname of the User.
+ */
+    router.post('/update',(req,res)=>{
+        let {name,price,desc,typename,typeid,img,_id}=req.body;
+        Food.updateOne({_id},{name,price,desc,typename,typeid,img})
+        .then((data)=>{
+            res.send({code:200,msg:'修改成功'});
+        })
+        .catch(()=>{
+            res.send({code:199,msg:'修改失败'});
+        })
+    })
+
+
 
 module.exports = router;
