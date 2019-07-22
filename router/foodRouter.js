@@ -83,7 +83,26 @@ router.post('/getInfoBykw',(req,res)=>{
     })
 })
 
-
+/**
+ * @api {post} /food/del  删除模块
+ * @apiName del
+ * @apiGroup Food
+ *
+ * @apiParam {Spring} _id id号
+ *
+ * @apiSuccess {json} firstname {code:200,msg:'查询成功'}
+ * @apiSuccess {String} lastname  Lastname of the User.
+ */
+router.post('/del',(req,res)=>{
+    let{_id}=req.body;
+    Food.remove({_id})
+    .then(()=>{
+        res.send({code:200,msg:'删除成功'});
+    })
+    .catch(()=>{
+        res.send({code:199,msg:'删除失败'});
+    })
+})
 
 
 module.exports = router;
