@@ -9,7 +9,9 @@ var storage = multer.diskStorage({  //配置信息
     },
     filename:function(req,file,cb){
         //指定文件的名字
-        let ext = file.originalname.split('.')[1]; //取文件后缀
+        // let ext = file.originalname.split('.')[1]; //取文件后缀（若文件名有多个.就会有问题）
+        let exts = file.originalname.split('.');
+        let ext = exts[exts.length-1];   //取数组最后一个
         let tmpname=(new Date()).getTime()+(parseInt(Math.random()*9999));  //文件名防止重复
         cb(null,`${tmpname}.${ext}`);     //若不设置就不会加文件后缀格式
     }
@@ -26,7 +28,7 @@ router.post('/upload',upload.single('hehe'),(req,res)=>{
     let {mimetype,size,path}=req.file;   //获取上传的文件的信息
     let types = ['jpg','jpeg','png','gif'];   //允许上传的数据类型
     let tmpType = mimetype.split('/')[1];  //获取上传文件的类型
-    
+
     if(size>50000){
         return res.send({code:199,msg:'文件尺寸过大'});
     }else if(types.indexOf(tmpType)==-1){

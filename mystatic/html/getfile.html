@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        请选择图片：<input type="file" id="file" name="hehe">
+        <br>
+        <img src="" alt="" style="width: 300px">
+        <button>提交</button>
+    </form>
+
+    <script>    
+    //将图片显示在页面
+    // $("#file").on('change',function(){
+    //     let File = this.files[0]; //获取图片
+    //     let url = URL.createObjectURL(File); //得到一个临时路径
+    //     $(this).next().next().attr('src',url);
+    // })
+
+    //发送ajax
+        $('button').on('click',function(e){
+            e.preventDefault();
+            console.log('123');
+            let formdata = new FormData($('form')[0]);
+            $.ajax({
+                type:'post',
+                url:'http://192.168.65.112:3000/file/upload',
+                data:formdata,
+                processData:false,
+                contentType:false,
+                success:(res)=>{
+                    if(res.code==200){
+                        alert('上传成功');
+                        $('img').attr('src',`http://192.168.65.112:3000/${res.img}`);
+                    }else{
+                        alert('上传失败');
+                    }
+                }
+            })
+        })
+    </script>
+</body>
+</html>
