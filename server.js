@@ -2,8 +2,11 @@ const express = require('express');
 const db = require('./db/connect');
 const bodyparser = require('body-parser'); //处理post请求的body数据
 const path = require('path');
+const cors = require('cors');
 
 const app = express();
+//cors 解决跨域问题
+app.use(cors());
 //解析表单数据 x-www-form-urlencoded
 app.use(bodyparser.urlencoded({ extended: false }));
 //解析json数据
