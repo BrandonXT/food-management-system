@@ -146,9 +146,15 @@ router.post('/getInfoByPage',(req,res)=>{
     // let {pageSize,page}= req.body;
     let pageSize = req.body.pageSize || 2 ;
     let page = req.body.page || 1 ;
-    Food.find().limit(Number(pageSize)).skip(Number((page-1)*pageSize))   //limit() skip() 都是mongoDB的方法
+    let count =0;
+    Food.find()
+    .then((list)=>{
+        count=list.length;
+        return Food.find().limit(Number(pageSize)).skip(Number((page-1)*pageSize))//limit() skip() 都是mongoDB的方法
+    })
     .then((data)=>{
-        res.send({code:200,msg:'查询成功',list:data});
+        let allpages = Math.ceil(count/pageSize);  //
+        res.send({code:200,msg:'查询成功',list:data,count:count,allpages:allpages});
     })
     .catch(()=>{
         res.send({code:200,msg:'查询失败'});
