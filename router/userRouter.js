@@ -75,7 +75,7 @@ router.post('/login',(req,res)=>{
         }
     })
     .catch(()=>{
-        return res.send({err:-1,msg:'内部错误'});
+        return res.send({err:-1,msg:'数据错误'});
     })
 })
 
