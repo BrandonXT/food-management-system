@@ -1,4 +1,5 @@
-# food-management-system
+# food-management-system（食物管理平台）
+## node.js初体验
 ## 写接口
     1.增加   √
     2.分类查询 √  
